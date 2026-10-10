@@ -3,46 +3,437 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lernzentrale · KVF 2. AJ</title>
+<title>Lernzentrale KVF</title>
 <style>
-:root{--petrol:#223D42;--mint:#6FA895;--grund:#F2F6F6;--text:#1A1A1A;--leise:#5C6A6C;--karte:#FFFFFF;--rand:#C9D4D2}
-@media (prefers-color-scheme:dark){:root{--grund:#142326;--text:#E8EEED;--leise:#A9B8B6;--karte:#1C3034;--rand:#2F4A4F}}
+:root{--petrol:#223D42;--mint:#5E9C87;--mint-hell:#E3F0EB;--grund:#F2F6F6;--text:#1A1A1A;--leise:#56656A;--karte:#FFFFFF;--rand:#C9D4D2;--sunk:#EAF0EF;
+  --ok:#1F7A4D;--ok-soft:#E2F2E8;--mittel:#9A6B00;--mittel-soft:#FBF1D9;--schwach:#B3412E;--schwach-soft:#FBE6E1;--fokus:#0B5FA5}
+@media (prefers-color-scheme:dark){:root{--petrol:#9CC9BB;--mint:#7FBFA8;--mint-hell:#1E3A35;--grund:#142326;--text:#E8EEED;--leise:#A9B8B6;--karte:#1C3034;--rand:#2F4A4F;--sunk:#173035;
+  --ok:#6FD39C;--ok-soft:#173A2A;--mittel:#E8C25A;--mittel-soft:#3A3117;--schwach:#F29A87;--schwach-soft:#3D221D;--fokus:#7CB8F0}}
 *{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--grund);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
-.wrap{max-width:860px;margin:0 auto;padding:28px 16px 48px}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 48px}
+a{color:var(--fokus)}
+:focus-visible{outline:3px solid var(--fokus);outline-offset:2px}
 .eyebrow{margin:0;color:var(--mint);font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:13px}
-h1{margin:4px 0 6px;color:var(--text);font-size:28px}
-.lead{margin:0 0 24px;color:var(--leise)}
-h2{font-size:15px;color:var(--leise);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.04em}
-a.karte{display:block;background:var(--karte);border:1px solid var(--rand);border-left:6px solid var(--mint);border-radius:10px;padding:16px 18px;margin:0 0 12px;color:inherit;text-decoration:none}
-a.karte:hover,a.karte:focus{border-color:var(--mint);outline:none}
-.karte .kopf{font-size:13px;color:var(--leise)}
-.karte .titel{font-size:19px;font-weight:700;margin:2px 0 4px}
-.karte .text{color:var(--leise);font-size:15px}
-.hinweis{background:var(--karte);border:1px solid var(--rand);border-radius:10px;padding:14px 18px;font-size:15px}
-footer{margin-top:32px;font-size:14px;color:var(--leise)}
-footer a{color:var(--mint)}
+h1{margin:2px 0 4px;font-size:28px;line-height:1.2}
+h2{font-size:19px;margin:0 0 4px}
+.leise{color:var(--leise)}.klein{font-size:14px}
+.karte{background:var(--karte);border:1px solid var(--rand);border-radius:12px;padding:16px 18px;margin:0 0 14px}
+.karte.akzent{border-left:6px solid var(--mint)}
+.banner{background:var(--mittel-soft);border:1px solid var(--mittel);border-radius:10px;padding:10px 14px;margin:0 0 14px;font-size:15px}
+.kopf{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end}
+.gross{font-size:52px;font-weight:800;line-height:1;color:var(--petrol);font-variant-numeric:tabular-nums}
+.gross small{font-size:16px;font-weight:600;color:var(--leise)}
+.balken{height:10px;background:var(--sunk);border-radius:99px;overflow:hidden;margin:10px 0 4px}
+.balken>i{display:block;height:100%;background:var(--mint);border-radius:99px}
+.balken.ok>i{background:var(--ok)}.balken.mittel>i{background:var(--mittel)}.balken.schwach>i{background:var(--schwach)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:13px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--sunk);border:1px solid var(--rand);white-space:nowrap}
+.chip.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.chip.mittel{background:var(--mittel-soft);border-color:var(--mittel);color:var(--mittel)}
+.chip.schwach{background:var(--schwach-soft);border-color:var(--schwach);color:var(--schwach)}
+.bereich{display:grid;grid-template-columns:2.2rem minmax(0,1fr);gap:4px 12px;padding:12px 0;border-top:1px solid var(--rand)}
+.bereich:first-of-type{border-top:0}
+.nr{width:2.2rem;height:2.2rem;border-radius:50%;background:var(--petrol);color:var(--karte);display:grid;place-items:center;font-weight:700}
+.bereich .zeile{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.bereich .titel{font-weight:650;min-width:0}
+.zahlen{font-size:14px;color:var(--leise);font-variant-numeric:tabular-nums}
+.schritte{margin:0;padding-left:1.2rem}.schritte li{margin:6px 0}
+.tage{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:4px;margin:10px 0 6px;max-width:520px}
+.tag{aspect-ratio:1;border-radius:4px;background:var(--sunk);border:1px solid var(--rand)}
+.tag.an{background:var(--mint);border-color:var(--mint)}
+.tag.heute{outline:2px solid var(--petrol);outline-offset:1px}
+.lz{display:grid;gap:6px;padding:10px 0;border-top:1px solid var(--rand)}.lz:first-of-type{border-top:0}
+.stempel{display:flex;flex-wrap:wrap;gap:6px}
+.stempel span{font-size:13px;font-weight:700;padding:4px 9px;border-radius:8px;border:2px dashed var(--rand);color:var(--leise)}
+.stempel span.an{border-style:solid;border-color:var(--ok);color:var(--ok);background:var(--ok-soft)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+td,th{padding:6px 4px;border-bottom:1px solid var(--rand);text-align:left;vertical-align:top}
+td.z,th.z{text-align:right;white-space:nowrap}
+tfoot td{font-weight:800;border-bottom:0}
+label.feld{display:grid;gap:4px;font-weight:600;margin:10px 0}
+input[type=text]{font:inherit;padding:10px 12px;border:1px solid var(--rand);border-radius:8px;background:var(--karte);color:var(--text);width:100%;max-width:22rem;min-height:2.75rem}
+.aktionen{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{font:inherit;font-weight:650;cursor:pointer;border:1px solid var(--rand);background:var(--karte);color:var(--text);border-radius:8px;padding:9px 16px;min-height:2.75rem;text-decoration:none;display:inline-flex;align-items:center}
+.btn.prim{background:var(--petrol);border-color:var(--petrol);color:var(--karte)}
+.btn:disabled{opacity:.45;cursor:default}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:22px;font-weight:800;letter-spacing:.06em;background:var(--sunk);border:2px dashed var(--mint);border-radius:10px;padding:12px 14px;margin:12px 0 4px;word-break:break-all;user-select:all}
+details{margin-top:8px}summary{cursor:pointer;font-weight:650}
+footer{margin-top:26px;font-size:14px;color:var(--leise)}
+.klassenzeile{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:0 0 14px;color:var(--leise);font-weight:600}
+.klein-btn{min-height:2.4rem;padding:6px 12px;font-size:14px}
+.ziele{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;margin-top:10px}
+.ziel{border:1px solid var(--rand);border-radius:10px;padding:12px 14px;display:grid;gap:4px;align-content:start;background:var(--karte)}
+.ziel.aktiv{border-left:6px solid var(--ok)}
+.ziel.spaeter{border-left:6px solid var(--rand)}
+.ziel.abgelegt{opacity:.8;border-style:dashed}
+.ziel .zeile{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+.ziel strong{font-size:18px}
+.termin{font-weight:650;font-variant-numeric:tabular-nums}
+.klassen{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:10px;margin-top:12px}
+.klasse-wahl{font:inherit;cursor:pointer;display:grid;gap:2px;text-align:left;border:1px solid var(--rand);border-left:6px solid var(--mint);border-radius:10px;padding:12px 14px;background:var(--karte);color:var(--text);min-height:3.5rem}
+.klasse-wahl strong{font-size:20px}
+.klasse-wahl:hover{border-color:var(--mint)}
+ul.module{margin:8px 0 6px;padding-left:1.2rem}ul.module li{margin:4px 0}
+@media (max-width:480px){h1{font-size:23px}.gross{font-size:42px}.code{font-size:18px}.tage{grid-template-columns:repeat(7,minmax(0,1fr))}}
+@media print{.aktionen,.btn{display:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<p class="eyebrow">BbS IV „Friedrich List“ · KVF · 2. Ausbildungsjahr</p>
-<h1>Lernzentrale</h1>
-<p class="lead">Üben, wiederholen und prüfen – passend zu Ihrem Skript. Je Lernsituation ein Modul.</p>
+<div class="wrap" id="app" aria-live="polite"></div>
+<noscript><div class="wrap"><p>Die Lernzentrale braucht JavaScript.</p></div></noscript>
+<script id="pass-daten" type="application/json">{"titel":"Lernzentrale KVF","untertitel":"BbS IV „Friedrich List“ Halle · Kaufleute für Versicherungen und Finanzanlagen","stand":"10.10.2026","punkte":{"gap1_richtig":1,"sim_beste_richtig":1,"stempel":10,"akte":10},"punkte_text":{"gap1_richtig":"je Aufgabe im Prüfungstraining, die Sie zuletzt richtig gelöst haben","sim_beste_richtig":"je richtige Aufgabe in Ihrer besten Prüfungssimulation","stempel":"je Stempel in einer Lernzentrale (Station mit mindestens 80 %)","akte":"je geschlossene Kundenakte in einer Lernzentrale"},"stufen":[[80,"sicher"],[50,"teilweise sicher"],[0,"noch üben"]],"forms_platzhalter":"CODE","code":{"praefix":"PP","version":2,"salz":"28d490bcb3e4045c"},"datenschutz_link":"datenschutz.html","auswertung":{"klassenziel_prozent":60,"vergleich_tage":14,"top":5},"ziele":[{"id":"gap1","titel":"GAP 1","lang":"Abschlussprüfung Teil 1","training":"gap1","ohne_training":""},{"id":"wiso","titel":"WISO","lang":"Wirtschafts- und Sozialkunde (Teil 2)","training":null,"ohne_training":"Das WISO-Training folgt. Bis dahin bereiten LF 1 und Sozialkunde im Unterricht darauf vor."},{"id":"gap2","titel":"GAP 2","lang":"Abschlussprüfung Teil 2 (schriftlich)","training":null,"ohne_training":"Das GAP-2-Training folgt. Bis dahin hilft das Prüfungstraining GAP 1 beim Wiederholen der Lernfelder 1–6."}],"quelle_termine":"kvf-guide.bwv.de/pruefung (Stand 14.09.2026); spätere Termine voraussichtlich (GAP 1 Mitte des 2. AJ, GAP 2 und WISO am Ende des 3. AJ)","beispiel_klasse":"KVF25","fenster":28,"top":5,"klassen":[{"id":"KVF26","beginn":"2026-08","forms_link":"","termine":{"gap1":{"termin":"2028-02","sicher":false},"wiso":{"termin":"2029-04","sicher":false},"gap2":{"termin":"2029-04","sicher":false}}},{"id":"KVF25","beginn":"2025-08","forms_link":"","termine":{"gap1":{"termin":"2027-02-24","sicher":true},"wiso":{"termin":"2028-04","sicher":false},"gap2":{"termin":"2028-04","sicher":false}}},{"id":"KVF23","beginn":"2024-08","forms_link":"","termine":{"gap1":{"termin":"2026-02","sicher":false},"wiso":{"termin":"2027-04-28","sicher":true},"gap2":{"termin":"2027-04-27","sicher":true}}}],"beispiel":false,"trainings":{"gap1":{"key":"gap1_training_v1","titel":"Prüfungstraining GAP 1","module":[{"nr":"1","titel":"Prozesse in der Versicherungswirtschaft einschätzen und berücksichtigen","lf":"LF 1","abschnitte":[{"nr":"1.1","titel":"Bedeutung der Versicherungswirtschaft","ids":["1.1-1-1","1.1-1-2","1.1-1-3","1.1-1-4","1.1-1-5","1.1-2-1","1.1-2-2","1.1-2-3"]},{"nr":"1.2","titel":"Auswirkungen von Entwicklungstrends auf die Versicherungswirtschaft","ids":["1.2-1-1","1.2-1-2","1.2-1-3","1.2-1-4","1.2-2-1","1.2-2-2","1.2-2-3"]}]},{"nr":"2","titel":"Kundinnen und Kunden ganzheitlich beraten und betreuen","lf":"LF 3 / LF 2","abschnitte":[{"nr":"2.1","titel":"Kundendaten erheben und pflegen, Anlässe zur Bedarfsanalyse nutzen","ids":["2.1-1-1","2.1-1-2","2.1-1-3","2.1-1-4","2.1-1-5","2.1-2-1","2.1-2-2","2.1-2-3"]},{"nr":"2.2","titel":"Kommunikationsformen und -wege kunden- und serviceorientiert wählen","ids":["2.2-1-1","2.2-1-2","2.2-1-3","2.2-1-4","2.2-1-5","2.2-2-1","2.2-2-2","2.2-2-3"]},{"nr":"2.3","titel":"Informations-, Beratungs- und Dokumentationspflichten einhalten","ids":["2.3-1-1","2.3-1-2","2.3-1-3","2.3-1-4","2.3-1-5","2.3-2-1","2.3-2-2","2.3-2-3"]}]},{"nr":"3","titel":"Rechtliche und vertragliche Rahmenbedingungen einhalten","lf":"LF 2 / LF 3","abschnitte":[{"nr":"3.1","titel":"Verbraucherschutz, Wettbewerbsrecht, Geldwäsche, Aufsicht und Vermittlerrecht","ids":["3.1-1-1","3.1-1-2","3.1-1-3","3.1-1-4","3.1-1-5","3.1-1-6","3.1-2-1","3.1-2-2","3.1-2-3"]},{"nr":"3.2","titel":"Über das Zustandekommen von Verträgen informieren","ids":["3.2-1-1","3.2-1-2","3.2-1-3","3.2-1-4","3.2-1-5","3.2-1-6","3.2-2-1","3.2-2-2","3.2-2-3"]},{"nr":"3.3","titel":"Rechtsgrundlagen bei der Antrags- und Vertragsbearbeitung einhalten","ids":["3.3-1-1","3.3-1-2","3.3-1-3","3.3-1-4","3.3-1-5","3.3-1-6","3.3-1-7","3.3-2-1","3.3-2-2","3.3-2-3"]}]},{"nr":"4","titel":"Wohnen und Wohneigentum absichern","lf":"LF 4","abschnitte":[{"nr":"4.1","titel":"Beratungsanlässe: Hausstandsgründung und veränderte Wohnsituation","ids":["4.1-1-1","4.1-1-2","4.1-1-3","4.1-1-4","4.1-2-1","4.1-2-2","4.1-2-3"]},{"nr":"4.2","titel":"Individuelle Bedarfe analysieren, Risikoprävention und -absicherung","ids":["4.2-1-1","4.2-1-2","4.2-1-3","4.2-1-4","4.2-1-5","4.2-2-1","4.2-2-2","4.2-2-3"]},{"nr":"4.3","titel":"Lösungsmöglichkeiten durch private Versicherungen aufzeigen","ids":["4.3-1-1","4.3-1-2","4.3-1-3","4.3-1-4","4.3-1-5","4.3-2-1","4.3-2-2","4.3-2-3"]},{"nr":"4.4","titel":"Kundengerechte Angebote erstellen, Rechtsstreitigkeiten und Ansprüche Dritter, Vertragsschluss","ids":["4.4-1-1","4.4-1-2","4.4-1-3","4.4-1-4","4.4-1-5","4.4-2-1","4.4-2-2","4.4-2-3"]},{"nr":"4.5","titel":"Ergänzende Serviceleistungen aufzeigen","ids":["4.5-1-1","4.5-1-2","4.5-1-3","4.5-2-1","4.5-2-2"]},{"nr":"4.6","titel":"Versicherungsrelevante rechtliche Regelungen rund ums Wohnen","ids":["4.6-1-1","4.6-1-2","4.6-1-3","4.6-2-1","4.6-2-2","4.6-2-3"]}]},{"nr":"5","titel":"Berufsausübung und Freizeitgestaltung absichern","lf":"LF 5","abschnitte":[{"nr":"5.1","titel":"Beratungsanlässe in Beruf und Freizeit","ids":["5.1-1-1","5.1-1-2","5.1-1-3","5.1-2-1","5.1-2-2","5.1-2-3"]},{"nr":"5.2","titel":"Haftungsansprüche analysieren und eigene Ansprüche durchsetzen","ids":["5.2-1-1","5.2-1-2","5.2-1-3","5.2-1-4","5.2-1-5","5.2-2-1","5.2-2-2","5.2-2-3"]},{"nr":"5.3","titel":"Rechtliche Regelungen in Beruf und Freizeit","ids":["5.3-1-1","5.3-1-2","5.3-1-3","5.3-1-4","5.3-1-5","5.3-2-1","5.3-2-2","5.3-2-3"]}]},{"nr":"6","titel":"Mobilität und Reisen absichern","lf":"LF 6 (2. AJ)","abschnitte":[{"nr":"6.1","titel":"Beratungsanlässe: Straßenverkehr und Reisen","ids":["6.1-1-1","6.1-1-2","6.1-1-3","6.1-2-1","6.1-2-2","6.1-2-3"]},{"nr":"6.2","titel":"Bedarfe analysieren, Risikoprävention und Absicherung","ids":["6.2-1-1","6.2-1-2","6.2-1-3","6.2-1-4","6.2-1-5","6.2-2-1","6.2-2-2","6.2-2-3"]},{"nr":"6.3","titel":"Rechtliche Regelungen zu Mobilität und Reisen","ids":["6.3-1-1","6.3-1-2","6.3-1-3","6.3-1-4","6.3-1-5","6.3-2-1","6.3-2-2","6.3-2-3"]}]}],"sim_n":20,"n":153,"link":"GAP1_Pruefungstraining.html"}},"lz":[{"key":"lz-ls061-v1","nr":"LS 06.1","titel":"Kfz versichern – die Kundenakte Brehmer","te":[1,2,3,4,5],"te_titel":{"1":"Kraftfahrtversicherung im Überblick","2":"Versicherungspflicht, Deckungssummen und Nachweis","3":"Schutz des Verkehrsopfers","4":"Unfall im Ausland","5":"Tarif und Schadenfreiheitsrabatt"},"schloesser":5,"id":"ls061","link":"KVF_LF06_LS06.1_Lernzentrale.html","aj":2,"ziele":{"gap1":["6"]}}]}</script>
+<script>
+// Meldecode des Prüfungspasses – gemeinsam für Pass (erzeugen) und Auswertung (lesen); bau_pass.py bettet diese Datei in beide ein.
+// Aufbau (Version 2, ab 10.10.2026): 81 Bit Werte + 16 Bit Prüfsumme = 97 Bit in 20 Zeichen Crockford-Base32 (ohne I, L, O, U),
+// Form PP-XXXXX-XXXXX-XXXXX-XXXXX. Version 1 (18 Zeichen) war nie veröffentlicht und wird nicht mehr gelesen.
+// Die Prüfsumme schützt vor Tippfehlern und einfachem Verändern, nicht vor Absicht mit Entwicklerwerkzeugen.
+const PCODE = (() => {
+  const A = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+  // v Version · jg Beginnjahr der Klasse − 2020 · ziel 1 GAP 1, 2 WISO, 3 GAP 2 · tag Tage seit 01.01.2026
+  // g Training richtig · b Training bearbeitet · s beste Simulation richtig · sn Simulationen
+  // st Stempel · ak geschlossene Akten · lt Lerntage im Fenster · nh Prüfzahl des Vornamens
+  const F = [['v', 4], ['jg', 5], ['ziel', 2], ['tag', 12], ['g', 10], ['b', 10], ['s', 5], ['sn', 6], ['st', 8], ['ak', 4], ['lt', 5], ['nh', 10]];
+  const BITS = F.reduce((s, f) => s + f[1], 0), ZEICHEN = 20, ZIELE = ['', 'gap1', 'wiso', 'gap2'];
+  const T0 = Date.UTC(2026, 0, 1);
+  const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  function tagNr(t) { const [y, m, d] = String(t).split('-').map(Number); return Math.round((Date.UTC(y, m - 1, d) - T0) / 864e5); }
+  function tagIso(n) { const d = new Date(T0 + n * 864e5); return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + String(d.getUTCDate()).padStart(2, '0'); }
+  function fnv(s) { let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; } return h >>> 0; }
+  // Vorname vergleichbar machen: klein, Umlaute ausgeschrieben, Akzente und Zeichen weg („Jörg“ = „Joerg“, „Anna-Lena“ = „annalena“)
+  function norm(t) {
+    return String(t || '').toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+      .normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z]/g, '');
+  }
+  function nameHash(t, salz) { const n = norm(t); return n ? fnv('N|' + salz + '|' + n) % 1023 + 1 : 0; }
+  function erzeuge(w, salz, praefix) {
+    let x = 0n;
+    for (const [k, b] of F) { const max = (1 << b) - 1; const v = Math.max(0, Math.min(max, Math.round(Number(w[k]) || 0))); x = (x << BigInt(b)) | BigInt(v); }
+    const p = fnv('P|' + salz + '|' + x.toString(32)) & 0xffff;
+    x = (x << 16n) | BigInt(p);
+    let s = ''; for (let i = 0; i < ZEICHEN; i++) { s = A[Number(x & 31n)] + s; x >>= 5n; }
+    return praefix + '-' + s.slice(0, 5) + '-' + s.slice(5, 10) + '-' + s.slice(10, 15) + '-' + s.slice(15);
+  }
+  function lies(code, salz, praefix) {
+    let s = String(code || '').toUpperCase().replace(/[\s\-–—_.:]/g, '');
+    if (s.startsWith(praefix)) s = s.slice(praefix.length);
+    s = s.replace(/O/g, '0').replace(/[IL]/g, '1');
+    if (s.length !== ZEICHEN) return { fehler: 'unvollständig (' + s.length + ' statt ' + ZEICHEN + ' Zeichen)' };
+    let x = 0n;
+    for (const c of s) { const i = A.indexOf(c); if (i < 0) return { fehler: 'ungültiges Zeichen „' + c + '“' }; x = (x << 5n) | BigInt(i); }
+    const p = Number(x & 0xffffn); x >>= 16n;
+    if ((fnv('P|' + salz + '|' + x.toString(32)) & 0xffff) !== p) return { fehler: 'Prüfsumme falsch (vertippt oder verändert)' };
+    if (x >> BigInt(BITS)) return { fehler: 'Überlauf (kein Code dieser Fassung)' };
+    const w = {};
+    for (let i = F.length - 1; i >= 0; i--) { const [k, b] = F[i]; w[k] = Number(x & BigInt((1 << b) - 1)); x >>= BigInt(b); }
+    w.datum = tagIso(w.tag); w.beginnjahr = 2020 + w.jg; w.ziel_id = ZIELE[w.ziel] || '';
+    return w;
+  }
+  function punkte(w, P) { return w.g * P.gap1_richtig + w.s * P.sim_beste_richtig + w.st * P.stempel + w.ak * P.akte; }
+  return { erzeuge, lies, nameHash, norm, tagNr, tagIso, iso, punkte, FELDER: F, ZIELE };
+})();
 
-<h2>Lernfeld 6 · Kunden im Bedarfsfeld Mobilität und Reisen beraten</h2>
-<a class="karte" href="KVF_LF06_LS06.1_Lernzentrale.html">
-  <div class="kopf">LS 06.1 · TE 1 bis TE 5</div>
-  <div class="titel">Kfz versichern – die Kundenakte Brehmer</div>
-  <div class="text">Kompass zum Skript, Stationen, Karteikarten, Blitzrunden, Rechentrainer und ein Spiel je TE.</div>
-</a>
+// Zeitplan der Klassen – gemeinsam für Startseite und Auswertung (Entscheidung 10.10.2026: eine Lernzentrale, drei Prüfungsziele)
+// Klasse: { id, beginn: 'JJJJ-MM', termine: { gap1|wiso|gap2: { termin: 'JJJJ-MM-TT' oder 'JJJJ-MM', sicher } } }
+const PZEIT = (() => {
+  const MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+  const iso = PCODE.iso;
+  // Ausbildungsjahr am Tag d: 0 = noch nicht begonnen, 1–3, 4 = vorbei
+  function aj(beginn, d) { const [y, m] = beginn.split('-').map(Number); const mon = (d.getFullYear() - y) * 12 + (d.getMonth() + 1 - m); return mon < 0 ? 0 : Math.min(4, Math.floor(mon / 12) + 1); }
+  function schuljahr(d) { const a = d.getMonth() + 1 >= 8 ? d.getFullYear() : d.getFullYear() - 1; return a + '/' + String(a + 1).slice(2); }
+  function start(t) { const p = t.termin.split('-'); return p.length === 3 ? t.termin : p[0] + '-' + p[1] + '-01'; }
+  function ende(t) { const p = t.termin.split('-'); return p.length === 3 ? t.termin : iso(new Date(+p[0], +p[1], 0)); }
+  // heute (optional): ein vergangener ungefährer Termin heißt nicht mehr „voraussichtlich“
+  function text(t, heute) { const p = t.termin.split('-'); if (t.sicher) return p[2] + '.' + p[1] + '.' + p[0]; return (heute && heute > ende(t) ? '' : 'voraussichtlich ') + MONATE[+p[1] - 1] + ' ' + p[0]; }
+  // Status eines Prüfungsziels: aktiv (bis zum Termin), spaeter (GAP 2 vor der GAP 1), abgelegt (Termin vorbei)
+  function status(k, zid, heute) {
+    if (zid === 'gap2' && heute <= ende(k.termine.gap1)) return 'spaeter';
+    return heute <= ende(k.termine[zid]) ? 'aktiv' : 'abgelegt';
+  }
+  function abstand(t, heute) {
+    const tage = PCODE.tagNr(start(t)) - PCODE.tagNr(heute);
+    if (tage < 0) return heute <= ende(t) ? 'in diesem Monat' : '';
+    if (!t.sicher) { const mon = Math.max(1, Math.round(tage / 30.44)); return 'in ca. ' + mon + (mon === 1 ? ' Monat' : ' Monaten'); }
+    if (tage === 0) return 'heute';
+    if (tage <= 60) return 'in ' + tage + (tage === 1 ? ' Tag' : ' Tagen');
+    return 'in ' + Math.round(tage / 7) + ' Wochen';
+  }
+  // Ziel, auf das Pass und Challenge sich beziehen: das nächste aktive Ziel mit Training, sonst das zuletzt abgelegte mit Training
+  function fokus(ziele, k, heute) {
+    const mit = ziele.filter(z => z.training);
+    const aktiv = mit.filter(z => status(k, z.id, heute) === 'aktiv').sort((a, b) => start(k.termine[a.id]).localeCompare(start(k.termine[b.id])));
+    if (aktiv.length) return { z: aktiv[0], wiederholung: false };
+    const ab = mit.filter(z => status(k, z.id, heute) === 'abgelegt').sort((a, b) => start(k.termine[b.id]).localeCompare(start(k.termine[a.id])));
+    return ab.length ? { z: ab[0], wiederholung: true } : null;
+  }
+  const jg = k => Number(k.beginn.slice(0, 4)) - 2020;
+  return { aj, schuljahr, start, ende, text, status, abstand, fokus, jg, MONATE };
+})();
 
-<h2>Gut zu wissen</h2>
-<div class="hinweis">Ihr Fortschritt wird nur in Ihrem Browser auf diesem Gerät gespeichert. Es gibt keine Anmeldung, und nichts wird an die Schule oder an Dritte übertragen. Die Lernzentrale zählt nicht für die Note.</div>
+(function () {
+  'use strict';
+  const P = JSON.parse(document.getElementById('pass-daten').textContent);
+  const ONLINE = /^https?:$/.test(location.protocol);
+  const BEISPIEL = !!P.beispiel || /[?&]beispiel(=|&|$)/.test(location.search);
+  const EIGEN = 'pruefungspass-v1';
+  const app = document.getElementById('app');
+  function lese(k) { try { const x = JSON.parse(localStorage.getItem(k) || 'null'); return x && typeof x === 'object' ? x : null; } catch (e) { return null; } }
+  function schreibe(k, v) { if (BEISPIEL) return; try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* Speicher gesperrt */ } }
+  function el(tag, props, kids) {
+    const e = document.createElement(tag);
+    if (props) for (const k of Object.keys(props)) { const v = props[k]; if (v === null || v === undefined || v === false) continue;
+      if (k === 'class') e.className = v; else if (k === 'text') e.textContent = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v === true ? '' : v); }
+    [].concat(kids === undefined ? [] : kids).forEach(c => { if (c === null || c === undefined || c === false) return; e.appendChild(typeof c === 'object' ? c : document.createTextNode(String(c))); });
+    return e;
+  }
+  const JETZT = new Date();
+  const heute = PCODE.iso(JETZT);
+  const datum = iso => { const x = String(iso).split('-'); return x.length === 3 ? x[2] + '.' + x[1] + '.' + x[0] : '–'; };
+  const pz = (a, b) => b ? Math.round(100 * a / b) : 0;
+  function stufe(p) { for (const [ab, t] of P.stufen) if (p >= ab) return { text: t, klasse: ab >= 80 ? 'ok' : ab >= 50 ? 'mittel' : 'schwach' }; return { text: '', klasse: '' }; }
+  function balken(p, klasse, label) { return el('div', { class: 'balken ' + (klasse || ''), role: 'img', 'aria-label': label || (p + ' %') }, el('i', { style: 'width:' + Math.max(0, Math.min(100, p)) + '%' })); }
+  const STATUS = { aktiv: 'im Blick', spaeter: 'nach der GAP 1', abgelegt: 'abgelegt' };
+  const zielTitel = id => (P.ziele.find(z => z.id === id) || {}).titel || id;
 
-<footer>
-  <a href="datenschutz.html">Datenschutz</a> · Bildungsgang Kaufmann/Kauffrau für Versicherungen und Finanzanlagen
-</footer>
-</div>
+  // ------------------------------------------------ Klasse: ?klasse=…, sonst gespeichert, sonst Auswahl
+  const finde = id => P.klassen.find(k => k.id === id) || null;
+  const urlKlasse = (location.search.match(/[?&]klasse=([^&#]+)/) || [])[1];
+  let eigen = lese(EIGEN) || {}, K = null, hinweis = '', waehlen = false;
+  if (urlKlasse) {
+    const id = decodeURIComponent(urlKlasse).trim().toUpperCase();
+    K = finde(id);
+    if (K) { eigen.klasse = K.id; schreibe(EIGEN, eigen); } else hinweis = 'Die Klasse „' + id + '“ gibt es in der Lernzentrale nicht (mehr). Bitte wählen Sie Ihre Klasse.';
+  }
+  if (!K && !hinweis && eigen.klasse) { K = finde(eigen.klasse); if (!K) hinweis = 'Ihre gespeicherte Klasse „' + eigen.klasse + '“ ist nicht mehr in der Lernzentrale. Bitte wählen Sie neu.'; }
+  if (!K && BEISPIEL) K = finde(P.beispiel_klasse) || P.klassen[0];
+
+  // ------------------------------------------------ Beispielansicht (ohne eigene Daten, nichts wird gespeichert)
+  function zufall(seed) { let x = seed >>> 0 || 1; return () => { x ^= x << 13; x >>>= 0; x ^= x >> 17; x ^= x << 5; x >>>= 0; return x / 4294967296; }; }
+  function tagVor(n) { const d = new Date(JETZT); d.setDate(d.getDate() - n); return PCODE.iso(d); }
+  function beispielGap1(T) {
+    const r = zufall(7), s = {}, quote = [0.9, 0.75, 0.6, 0.35, 0.55, 0.7], dran = [1, 1, 0.8, 0.6, 0.5, 0.3];
+    T.module.forEach((m, i) => m.abschnitte.forEach(a => a.ids.forEach(id => { if (r() < dran[i % 6]) s[id] = { ok: r() < quote[i % 6], t: Date.now() }; })));
+    s._sim = { anz: 3, beste: { r: 14, n: T.sim_n, d: tagVor(3) }, letzte: { r: 12, n: T.sim_n, d: tagVor(1) }, summe: { 1: [7, 8], 2: [8, 10], 3: [6, 9], 4: [8, 15], 5: [6, 9], 6: [5, 9] } };
+    s._tage = [1, 2, 3, 5, 8, 9, 12, 15, 16, 22, 26].map(tagVor);
+    return s;
+  }
+  function beispielLz(i) { return i ? {} : { stempel: { 1: true, 2: true, 4: true }, best: { 1: 92, 2: 85, 3: 64, 4: 81 }, akte: { 0: true, 1: true, 2: true }, tage: [0, 4, 6, 9].map(tagVor) }; }
+
+  // ------------------------------------------------ Stand für ein Prüfungsziel mit Training
+  function stand(z, lzListe) {
+    const T = P.trainings[z.training];
+    const g1 = BEISPIEL ? beispielGap1(T) : (lese(T.key) || {});
+    const lzRoh = lzListe.map((l, i) => BEISPIEL ? beispielLz(i) : (lese(l.key) || {}));
+    const bereiche = T.module.map(m => {
+      const abs = m.abschnitte.map(a => { let r = 0, b = 0; a.ids.forEach(id => { const x = g1[id]; if (x && typeof x === 'object') { b++; if (x.ok === true) r++; } }); return { nr: a.nr, titel: a.titel, r, b, t: a.ids.length }; });
+      const sum = k => abs.reduce((s, a) => s + a[k], 0);
+      return { nr: m.nr, titel: m.titel, lf: m.lf, abs, r: sum('r'), b: sum('b'), t: sum('t') };
+    });
+    const g = bereiche.reduce((s, x) => s + x.r, 0), b = bereiche.reduce((s, x) => s + x.b, 0);
+    const sx = g1._sim, simOk = sx && typeof sx === 'object' && sx.beste && typeof sx.beste.r === 'number';
+    const sim = simOk ? { anz: Math.max(0, sx.anz | 0), beste: sx.beste, letzte: sx.letzte || sx.beste, summe: sx.summe && typeof sx.summe === 'object' ? sx.summe : {} } : null;
+    const lz = lzListe.map((l, i) => {
+      const x = lzRoh[i], st = x.stempel && typeof x.stempel === 'object' ? x.stempel : {}, ak = x.akte && typeof x.akte === 'object' ? x.akte : {};
+      const best = x.best && typeof x.best === 'object' ? x.best : {};
+      const offen = Array.from({ length: l.schloesser }, (_, k) => !!ak[k]).filter(Boolean).length;
+      return { l, stempel: l.te.filter(t => st[t] === true), best, offen, zu: l.schloesser > 0 && offen === l.schloesser, benutzt: Object.keys(x).length > 0 };
+    });
+    // Lerntage aus allen Speichern der Lernzentrale (auch Module außerhalb dieses Ziels)
+    const tage = new Set();
+    const alle = [g1._tage].concat(lzRoh.map(x => x.tage));
+    if (!BEISPIEL) P.lz.filter(l => !lzListe.includes(l)).forEach(l => { const x = lese(l.key); if (x) alle.push(x.tage); });
+    alle.forEach(a => { if (Array.isArray(a)) a.forEach(d => { if (typeof d === 'string' && /^\d{4}-\d\d-\d\d$/.test(d)) tage.add(d); }); });
+    const nHeute = PCODE.tagNr(heute), ab = nHeute - (P.fenster - 1);
+    const imFenster = [...tage].filter(d => { const n = PCODE.tagNr(d); return n >= ab && n <= nHeute; });
+    const w = { v: P.code.version, jg: PZEIT.jg(K), ziel: PCODE.ZIELE.indexOf(z.id), tag: nHeute, g, b,
+      s: sim ? Math.max(0, Math.min(T.sim_n, sim.beste.r | 0)) : 0, sn: sim ? Math.min(63, sim.anz) : 0,
+      st: lz.reduce((s, x) => s + x.stempel.length, 0), ak: lz.filter(x => x.zu).length, lt: imFenster.length };
+    const max = T.n * P.punkte.gap1_richtig + T.sim_n * P.punkte.sim_beste_richtig + lzListe.reduce((s, l) => s + l.te.length, 0) * P.punkte.stempel + lzListe.length * P.punkte.akte;
+    const leer = !Object.keys(g1).length && !lz.some(x => x.benutzt);
+    return { T, bereiche, sim, lz, w, punkte: PCODE.punkte(w, P.punkte), max, stMax: lzListe.reduce((s, l) => s + l.te.length, 0), tage: new Set(imFenster), leer };
+  }
+
+  // ------------------------------------------------ Nächste Schritte
+  function vorschlaege(S) {
+    const v = [], tr = () => el('a', { href: S.T.link }, 'Prüfungstraining');
+    if (!S.w.b) v.push(['Beginnen Sie im ', tr(), ' mit Bereich 1 „' + S.T.module[0].titel + '“ – Lektion „Grundwissen“.']);
+    else {
+      const schwach = S.bereiche.filter(x => x.b > 0 && x.r < x.t).sort((a, c) => a.r / a.t - c.r / c.t)[0];
+      if (schwach && pz(schwach.r, schwach.t) < 80) {
+        const kand = schwach.abs.filter(a => a.b > 0 && a.r < a.t), ab = (kand.length ? kand : schwach.abs.filter(a => a.r < a.t)).sort((a, c) => a.r / a.t - c.r / c.t)[0];
+        v.push(['Festigen Sie im ', tr(), ' Abschnitt ' + ab.nr + ' „' + ab.titel + '“: ' + ab.r + ' von ' + ab.t + ' Aufgaben sitzen. Bereich ' + schwach.nr + ' ist gerade Ihr schwächster.']); }
+      const neu = S.bereiche.find(x => x.b === 0);
+      if (neu) v.push(['Nehmen Sie sich als Nächstes Bereich ' + neu.nr + ' „' + neu.titel + '“ vor – im ', tr(), ' mit Abschnitt ' + neu.abs[0].nr + ', Lektion „Grundwissen“.']);
+      if (!S.sim && S.w.b >= 30) v.push(['Testen Sie sich unter Prüfungsbedingungen: Starten Sie im ', tr(), ' die Prüfungssimulation mit ' + S.T.sim_n + ' Aufgaben.']);
+    }
+    S.lz.forEach(x => { const fehlt = x.l.te.filter(t => !x.stempel.includes(t));
+      if (fehlt.length) { const t = fehlt.sort((a, c) => (x.best[c] || 0) - (x.best[a] || 0))[0];
+        v.push(['Holen Sie in der ', el('a', { href: x.l.link }, 'Lernzentrale ' + x.l.nr), ' den Stempel in TE ' + t + (x.best[t] ? ' – bisher ' + x.best[t] + ' %, ab 80 % gibt es ihn.' : ' – ab 80 % in der Station gibt es ihn.')]); }
+      else if (!x.zu) v.push(['Schließen Sie in der ', el('a', { href: x.l.link }, 'Lernzentrale ' + x.l.nr), ' die Kundenakte: ' + x.offen + ' von ' + x.l.schloesser + ' Schlössern sind offen.']); });
+    if (S.w.lt < 6) v.push(['Bleiben Sie dran: Mehrere kurze Lerntage wirken stärker als ein langer.']);
+    return v.slice(0, 3);
+  }
+
+  // ------------------------------------------------ Meldecode (Challenge je Klasse)
+  function meldeBereich(S, z) {
+    eigen = lese(EIGEN) || eigen;
+    const sec = el('section', { class: 'karte', id: 'melden', 'aria-labelledby': 'h-melden' });
+    const ausgabe = el('div', { 'data-ausgabe': '' });
+    const name = el('input', { type: 'text', id: 'vorname', autocomplete: 'given-name', maxlength: '40', value: eigen.vorname || '' });
+    const knopf = el('button', { class: 'btn prim', 'data-act': 'code', type: 'button' }, 'Meldecode erzeugen');
+    const sperre = () => { knopf.disabled = BEISPIEL || !PCODE.norm(name.value); };
+    name.addEventListener('input', sperre); sperre();
+    const link = K.forms_link || '';
+    knopf.addEventListener('click', () => {
+      const vn = name.value.trim().split(/\s+/)[0]; if (!PCODE.norm(vn) || BEISPIEL) return;
+      const e = lese(EIGEN) || {}; e.vorname = vn; schreibe(EIGEN, e);
+      const code = PCODE.erzeuge(Object.assign({}, S.w, { nh: PCODE.nameHash(vn, P.code.salz) }), P.code.salz, P.code.praefix);
+      const merke = () => { const x = lese(EIGEN) || {}; x.gemeldet = { datum: heute, punkte: S.punkte, klasse: K.id, ziel: z.id }; schreibe(EIGEN, x); };
+      const kopier = el('button', { class: 'btn', type: 'button', 'data-act': 'kopieren' }, 'Code kopieren');
+      kopier.addEventListener('click', () => {
+        const fertig = () => { kopier.textContent = 'Kopiert ✓'; merke(); };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(fertig, () => { waehle(); fertig(); }); else { waehle(); fertig(); }
+      });
+      const codeEl = el('div', { class: 'code', 'data-code': code, tabindex: '0', 'aria-label': 'Meldecode ' + code }, code);
+      function waehle() { const r = document.createRange(); r.selectNodeContents(codeEl); const s = getSelection(); s.removeAllRanges(); s.addRange(r); try { document.execCommand('copy'); } catch (err) { /* manuell */ } }
+      const forms = link ? el('a', { class: 'btn prim', 'data-act': 'forms', target: '_blank', rel: 'noopener',
+        href: link.includes(P.forms_platzhalter) ? link.split(P.forms_platzhalter).join(encodeURIComponent(code)) : link, onclick: merke }, 'In Forms melden') : null;
+      ausgabe.textContent = '';
+      [codeEl, el('p', { class: 'leise klein' }, 'Klasse ' + K.id + ' · ' + z.titel + ' · ' + S.punkte + ' Trainingspunkte · Stand ' + datum(heute) + '. ' + (link ? (link.includes(P.forms_platzhalter) ? 'Der Code wird in Forms schon eingetragen.' : 'Fügen Sie den Code in Forms ein.') : 'Den Link zum Formular gibt Ihre Lehrkraft bekannt.')),
+        el('div', { class: 'aktionen' }, [kopier, forms])].forEach(x => ausgabe.appendChild(x));
+    });
+    const g = eigen.gemeldet;
+    const passt = g && typeof g.punkte === 'number' && (!g.klasse || (g.klasse === K.id && g.ziel === z.id));
+    const zuletzt = passt ? el('p', { class: 'chip ' + (S.punkte > g.punkte ? 'ok' : ''), 'data-gemeldet': String(g.punkte) },
+      'Zuletzt gemeldet am ' + datum(g.datum) + ' mit ' + g.punkte + ' Trainingspunkten' + (S.punkte > g.punkte ? ' · seitdem +' + (S.punkte - g.punkte) : '')) : null;
+    [el('h2', { id: 'h-melden' }, 'Klassen-Challenge ' + K.id),
+      el('p', {}, 'Freiwillig: Wer mitmachen will, meldet seinen Stand mit einem Code über Forms. Die Lehrkraft zeigt daraus die Top ' + P.top + ' Ihrer Klasse nach Trainingspunkten, nach dem größten Sprung und nach dem Dranbleiben – und ob die Klasse ihr gemeinsames Ziel erreicht.'),
+      el('p', { class: 'leise klein' }, 'Der Code enthält nur Klasse, Prüfungsziel, Ihre Trainingspunkte, die Lerntage und eine Prüfzahl zu Ihrem Vornamen – keine Antworten. Im Ranking steht nur Ihr Vorname (bei gleichen Vornamen mit dem ersten Buchstaben des Nachnamens). Die Challenge hat keinen Einfluss auf Noten.'),
+      zuletzt,
+      el('label', { class: 'feld', for: 'vorname' }, ['Ihr Vorname', el('span', { class: 'leise klein' }, 'so wie in Ihrem Schulkonto; bei mehreren Vornamen der erste')]), name,
+      BEISPIEL ? el('p', { class: 'leise klein' }, 'In der Beispielansicht wird kein Code erzeugt.') : null,
+      el('div', { class: 'aktionen' }, [knopf]), ausgabe].forEach(x => { if (x) sec.appendChild(x); });
+    return sec;
+  }
+
+  // ------------------------------------------------ Klassenwahl
+  function auswahl() {
+    app.textContent = '';
+    const liste = P.klassen.map(k => ({ k, aj: PZEIT.aj(k.beginn, JETZT) })).filter(x => x.aj <= 3).sort((a, b) => (a.aj - b.aj) || a.k.id.localeCompare(b.k.id));
+    [el('p', { class: 'eyebrow' }, P.untertitel), el('h1', {}, P.titel),
+      hinweis ? el('div', { class: 'banner', 'data-hinweis': '' }, hinweis) : null,
+      el('section', { class: 'karte akzent', 'data-auswahl': '' }, [el('h2', {}, 'Ihre Klasse'),
+        el('p', {}, 'Wählen Sie einmal Ihre Klasse. Die Lernzentrale zeigt Ihnen dann Ihre Prüfungen, Ihren Stand und die passenden Module. Die Auswahl bleibt nur in diesem Browser gespeichert und lässt sich jederzeit ändern.'),
+        el('div', { class: 'klassen' }, liste.map(x => el('button', { class: 'klasse-wahl', type: 'button', 'data-klasse': x.k.id, onclick: () => {
+          K = x.k; hinweis = ''; eigen = lese(EIGEN) || {}; eigen.klasse = K.id; schreibe(EIGEN, eigen); waehlen = false;
+          if (urlKlasse && history.replaceState) history.replaceState(null, '', location.pathname + (BEISPIEL ? '?beispiel' : ''));
+          zeichne(); window.scrollTo(0, 0); } },
+          [el('strong', {}, x.k.id), el('span', { class: 'leise klein' }, x.aj ? x.aj + '. Ausbildungsjahr' : 'beginnt ' + PZEIT.MONATE[+x.k.beginn.slice(5) - 1] + ' ' + x.k.beginn.slice(0, 4))])))]),
+      fusszeile()].forEach(x => { if (x) app.appendChild(x); });
+  }
+  function fusszeile() {
+    return el('footer', {}, [el('a', { href: P.datenschutz_link }, 'Datenschutz'),
+      el('p', { class: 'klein' }, 'Die Lernzentrale liest nur den Speicher dieses Browsers und überträgt nichts. Prüfungstermine: ' + P.quelle_termine + '. Stand der Seite ' + P.stand + '.')]);
+  }
+
+  // ------------------------------------------------ Ansicht einer Klasse
+  function zeichne() {
+    if (!K || waehlen) return auswahl();
+    app.textContent = '';
+    const aj = PZEIT.aj(K.beginn, JETZT);
+    const lzSicht = P.lz.filter(l => l.aj <= aj);
+    const ordnung = { aktiv: 0, spaeter: 1, abgelegt: 2 };
+    const ziele = P.ziele.map(z => ({ z, t: K.termine[z.id], st: PZEIT.status(K, z.id, heute) }))
+      .sort((a, b) => ordnung[a.st] - ordnung[b.st] || PZEIT.start(a.t).localeCompare(PZEIT.start(b.t)));
+    const F = PZEIT.fokus(P.ziele, K, heute);
+    const teile = [];
+    teile.push(el('p', { class: 'eyebrow' }, P.untertitel));
+    teile.push(el('h1', {}, P.titel));
+    teile.push(el('div', { class: 'klassenzeile' }, [el('span', { 'data-klasse-aktiv': K.id }, 'Klasse ' + K.id + ' · ' + (aj === 0 ? 'Ausbildung beginnt ' + PZEIT.MONATE[+K.beginn.slice(5) - 1] + ' ' + K.beginn.slice(0, 4) : aj <= 3 ? aj + '. Ausbildungsjahr' : 'Ausbildung abgeschlossen') + ' · Schuljahr ' + PZEIT.schuljahr(JETZT)),
+      el('button', { class: 'btn klein-btn', type: 'button', 'data-act': 'klasse', onclick: () => { waehlen = true; hinweis = ''; zeichne(); } }, 'Klasse wechseln')]));
+    if (BEISPIEL) teile.push(el('div', { class: 'banner', 'data-beispiel': '' }, 'Beispielansicht mit ausgedachten Werten – so sieht die Lernzentrale aus, wenn schon geübt wurde.'));
+
+    // Ihre Prüfungen
+    teile.push(el('section', { class: 'karte', 'aria-labelledby': 'h-pruef' }, [el('h2', { id: 'h-pruef' }, 'Ihre Prüfungen'),
+      el('div', { class: 'ziele', 'data-ziele': ziele.map(x => x.z.id + ':' + x.st).join(',') }, ziele.map(x => {
+        const T = x.z.training ? P.trainings[x.z.training] : null;
+        return el('div', { class: 'ziel ' + x.st, 'data-ziel': x.z.id, 'data-status': x.st }, [
+          el('div', { class: 'zeile' }, [el('strong', {}, x.z.titel), el('span', { class: 'chip ' + (x.st === 'aktiv' ? 'ok' : '') }, STATUS[x.st])]),
+          el('div', { class: 'leise klein' }, x.z.lang),
+          el('div', { class: 'termin', 'data-termin': x.t.termin }, PZEIT.text(x.t, heute) + (x.st !== 'abgelegt' && PZEIT.abstand(x.t, heute) ? ' · ' + PZEIT.abstand(x.t, heute) : '')),
+          T ? el('a', { href: T.link, class: 'klein' }, x.st === 'abgelegt' ? 'Training zum Wiederholen' : 'Zum Prüfungstraining') : el('p', { class: 'klein leise', 'data-folgt': '' }, x.z.ohne_training)]);
+      }))]));
+
+    if (F) {
+      const z = F.z, lzZ = lzSicht.filter(l => l.ziele[z.id]);
+      const S = stand(z, lzZ), p = pz(S.punkte, S.max);
+      if (!BEISPIEL && S.leer) teile.push(el('div', { class: 'banner', 'data-leer': '' }, ONLINE
+        ? 'Noch nichts geübt – oder Sie nutzen ein anderes Gerät oder einen anderen Browser. Die Lernzentrale zeigt nur, was in diesem Browser gespeichert ist.'
+        : 'Diese Datei ist direkt geöffnet. Ihren Stand sieht die Lernzentrale nur, wenn Sie sie über ihre Adresse öffnen.'));
+      // Trainingspunkte
+      teile.push(el('section', { class: 'karte akzent', 'aria-labelledby': 'h-punkte', 'data-fokus': z.id }, [
+        el('div', { class: 'kopf' }, [el('div', {}, [el('h2', { id: 'h-punkte' }, 'Trainingspunkte ' + z.titel + (F.wiederholung ? ' · zum Wiederholen' : '')),
+          el('p', { class: 'leise klein' }, 'Prüfungstraining und Lernzentralen Ihrer Klasse zusammen – keine Notenpunkte')]),
+          el('div', { class: 'gross', 'data-punkte': String(S.punkte), 'data-max': String(S.max) }, [String(S.punkte), el('small', {}, ' / ' + S.max)])]),
+        balken(p, '', S.punkte + ' von ' + S.max + ' Trainingspunkten'),
+        el('div', { class: 'chips' }, [
+          el('span', { class: 'chip' }, S.w.g + ' Aufgaben sitzen'),
+          el('span', { class: 'chip' }, 'Simulation ' + (S.sim ? 'bestes ' + S.w.s + '/' + S.T.sim_n : '–')),
+          S.stMax ? el('span', { class: 'chip' }, S.w.st + ' von ' + S.stMax + ' Stempeln') : null,
+          el('span', { class: 'chip' }, S.w.lt + ' Lerntage in ' + P.fenster + ' Tagen')]),
+        el('details', {}, [el('summary', {}, 'So entstehen die Trainingspunkte'), el('table', {}, [
+          el('tbody', {}, [['gap1_richtig', S.w.g], ['sim_beste_richtig', S.w.s], ['stempel', S.w.st], ['akte', S.w.ak]].map(([k, n]) =>
+            el('tr', {}, [el('td', {}, P.punkte[k] + ' Trainingspunkt' + (P.punkte[k] === 1 ? '' : 'e') + ' ' + P.punkte_text[k]), el('td', { class: 'z' }, n + ' × ' + P.punkte[k]), el('td', { class: 'z' }, String(n * P.punkte[k]))]))),
+          el('tfoot', {}, el('tr', {}, [el('td', {}, 'Summe'), el('td', {}), el('td', { class: 'z' }, String(S.punkte))]))])])
+      ]));
+      const v = vorschlaege(S);
+      if (v.length) teile.push(el('section', { class: 'karte', 'aria-labelledby': 'h-weiter' }, [el('h2', { id: 'h-weiter' }, 'Ihr nächster Schritt'),
+        el('ol', { class: 'schritte', 'data-schritte': String(v.length) }, v.map(x => el('li', {}, x)))]));
+      // Prüfungsreife je Bereich (Messwert aus dem Training; Module als Vorbereitung daneben)
+      const sec = el('section', { class: 'karte', 'aria-labelledby': 'h-reife' }, [el('h2', { id: 'h-reife' }, 'Prüfungsreife ' + z.titel),
+        el('p', { class: 'leise klein' }, 'Richtig = zuletzt richtig gelöst, gemessen an allen Aufgaben des Bereichs im Prüfungstraining. ' + P.stufen.map(s => s[0] ? 'ab ' + s[0] + ' % ' + s[1] : 'darunter ' + s[1]).join(', ') + '. Stempel aus Lernzentralen stehen als Vorbereitung daneben.')]);
+      S.bereiche.forEach(x => {
+        const q = pz(x.r, x.t), st = stufe(q), sm = S.sim && S.sim.summe[x.nr];
+        const vorb = S.lz.filter(y => (y.l.ziele[z.id] || []).includes(String(x.nr))).map(y => y.l.nr + ': ' + y.stempel.length + ' von ' + y.l.te.length + ' Stempeln');
+        sec.appendChild(el('div', { class: 'bereich', 'data-bereich': x.nr }, [el('div', { class: 'nr', 'aria-hidden': 'true' }, x.nr), el('div', {}, [
+          el('div', { class: 'zeile' }, [el('span', { class: 'titel' }, x.titel), el('span', { class: 'chip ' + (x.b ? st.klasse : '') }, x.b ? st.text : 'noch offen')]),
+          balken(q, x.b ? st.klasse : '', 'Bereich ' + x.nr + ': ' + q + ' % richtig'),
+          el('div', { class: 'zahlen' }, x.r + ' von ' + x.t + ' richtig (' + q + ' %) · ' + pz(x.b, x.t) + ' % bearbeitet' + (Array.isArray(sm) && sm[1] ? ' · Simulation ' + sm[0] + ' von ' + sm[1] : '') + ' · ' + x.lf),
+          vorb.length ? el('div', { class: 'zahlen', 'data-vorbereitung': '' }, 'Vorbereitet: ' + vorb.join(' · ')) : null])]));
+      });
+      teile.push(sec);
+      teile.push(el('section', { class: 'karte', 'aria-labelledby': 'h-sim' }, [el('h2', { id: 'h-sim' }, 'Prüfungssimulation'),
+        S.sim ? el('div', { class: 'chips', 'data-sim': String(S.sim.beste.r) }, [
+          el('span', { class: 'chip ' + stufe(pz(S.sim.beste.r, S.sim.beste.n)).klasse }, 'Bestes Ergebnis ' + S.sim.beste.r + ' von ' + S.sim.beste.n + ' (' + datum(S.sim.beste.d) + ')'),
+          el('span', { class: 'chip' }, 'Zuletzt ' + S.sim.letzte.r + ' von ' + S.sim.letzte.n + ' (' + datum(S.sim.letzte.d) + ')'),
+          el('span', { class: 'chip' }, S.sim.anz + (S.sim.anz === 1 ? ' Durchgang' : ' Durchgänge'))])
+          : el('p', { 'data-sim': 'leer' }, ['Noch keine Simulation abgeschlossen. Sie steht im ', el('a', { href: S.T.link }, 'Prüfungstraining'), ' im Menü.'])]));
+      if (S.lz.length) teile.push(el('section', { class: 'karte', 'aria-labelledby': 'h-lz' }, [el('h2', { id: 'h-lz' }, 'Stempel aus den Lernzentralen')].concat(S.lz.map(x =>
+        el('div', { class: 'lz', 'data-lz': x.l.key }, [el('div', { class: 'zeile' }, [el('a', { href: x.l.link }, x.l.nr + ' · ' + x.l.titel)]),
+          el('div', { class: 'stempel', role: 'list' }, x.l.te.map(t => el('span', { role: 'listitem', class: x.stempel.includes(t) ? 'an' : '', title: x.l.te_titel[t] || '' }, 'TE ' + t + (x.stempel.includes(t) ? ' ✓' : '')))),
+          el('div', { class: 'zahlen' }, x.stempel.length + ' von ' + x.l.te.length + ' Stempeln · Kundenakte ' + (x.zu ? 'geschlossen ✓' : x.offen + ' von ' + x.l.schloesser + ' Schlössern offen') + ' · zählt für ' + z.titel + ', Bereich ' + (x.l.ziele[z.id] || []).join(', '))])))));
+      const kal = el('div', { class: 'tage', 'aria-hidden': 'true' });
+      for (let i = P.fenster - 1; i >= 0; i--) { const d = tagVor(i); kal.appendChild(el('span', { class: 'tag' + (S.tage.has(d) ? ' an' : '') + (i === 0 ? ' heute' : ''), title: datum(d) })); }
+      teile.push(el('section', { class: 'karte', 'aria-labelledby': 'h-dran' }, [el('h2', { id: 'h-dran' }, 'Dranbleiben'),
+        el('p', { 'data-lerntage': String(S.w.lt) }, S.w.lt + (S.w.lt === 1 ? ' Lerntag' : ' Lerntage') + ' in den letzten ' + P.fenster + ' Tagen'), kal,
+        el('p', { class: 'leise klein' }, 'Ein Lerntag zählt, wenn Sie an dem Tag im Prüfungstraining oder in einer Lernzentrale geübt haben.')]));
+      teile.push(meldeBereich(S, z));
+    }
+
+    // Ihre Module
+    const trainings = P.ziele.filter(z => z.training).map(z => ({ z, T: P.trainings[z.training] }));
+    teile.push(el('section', { class: 'karte', 'aria-labelledby': 'h-module' }, [el('h2', { id: 'h-module' }, 'Ihre Module'),
+      el('ul', { class: 'module', 'data-module': lzSicht.map(l => l.id).join(',') }, trainings.map(x => el('li', {}, [el('a', { href: x.T.link }, x.T.titel), el('span', { class: 'leise klein' }, ' · ' + x.z.titel)]))
+        .concat(lzSicht.map(l => el('li', {}, [el('a', { href: l.link }, 'Lernzentrale ' + l.nr + ' · ' + l.titel), el('span', { class: 'leise klein' }, ' · ' + l.aj + '. AJ')])))),
+      el('p', { class: 'leise klein' }, 'Weitere Module kommen im Takt des Unterrichts dazu. Ihre Noten und den Plan finden Sie in Mein KVF.')]));
+    teile.push(fusszeile());
+    teile.forEach(x => app.appendChild(x));
+  }
+  zeichne();
+  window.addEventListener('pageshow', e => { if (e.persisted) zeichne(); });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && !document.querySelector('[data-code]')) zeichne(); });
+})();
+</script>
 </body>
 </html>
