@@ -29,7 +29,7 @@
   --cd-schrift:"Montserrat CD","Montserrat",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   --cd-mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,"Roboto Mono",monospace;}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --cd-grund:color-mix(in srgb,#223D42 55%,#000000); --cd-flaeche:color-mix(in srgb,#223D42 80%,#000000); --cd-sunk:color-mix(in srgb,#223D42 45%,#000000);
+  --cd-grund:#223D42; --cd-flaeche:color-mix(in srgb,#223D42 91%,#FFFFFF); --cd-sunk:color-mix(in srgb,#223D42 78%,#000000);
   --cd-rand:color-mix(in srgb,#223D42 74%,#FFFFFF);
   --cd-text:#E9F1ED; --cd-text2:color-mix(in srgb,#E9F1ED 86%,#223D42); --cd-leise:color-mix(in srgb,#E9F1ED 72%,#223D42);
   --cd-leit:#CEE3DD; --cd-auf-leit:#223D42; --cd-akzent:#6FA895; --cd-akzent-text:#CEE3DD; --cd-akzent-hell:color-mix(in srgb,#6FA895 26%,#223D42);
@@ -40,7 +40,7 @@
   --cd-schatten:0 1px 2px color-mix(in srgb,#000000 30%,transparent);
   --cd-logo-1:#FFFFFF; --cd-logo-2:#FFFFFF; --cd-logo-3:#FFFFFF; color-scheme:dark;}}
 :root[data-theme="dark"]{
-  --cd-grund:color-mix(in srgb,#223D42 55%,#000000); --cd-flaeche:color-mix(in srgb,#223D42 80%,#000000); --cd-sunk:color-mix(in srgb,#223D42 45%,#000000);
+  --cd-grund:#223D42; --cd-flaeche:color-mix(in srgb,#223D42 91%,#FFFFFF); --cd-sunk:color-mix(in srgb,#223D42 78%,#000000);
   --cd-rand:color-mix(in srgb,#223D42 74%,#FFFFFF);
   --cd-text:#E9F1ED; --cd-text2:color-mix(in srgb,#E9F1ED 86%,#223D42); --cd-leise:color-mix(in srgb,#E9F1ED 72%,#223D42);
   --cd-leit:#CEE3DD; --cd-auf-leit:#223D42; --cd-akzent:#6FA895; --cd-akzent-text:#CEE3DD; --cd-akzent-hell:color-mix(in srgb,#6FA895 26%,#223D42);
